@@ -97,7 +97,7 @@ module.exports = function(args, callback, settings){
         concurrentDelay = typeof settings.concurrentDelay !== 'undefined'? settings.concurrentDelay: concurrentDelay;
         concurrentMaxRetry = typeof settings.concurrentMaxRetry !== 'undefined'? settings.concurrentMaxRetry: concurrentMaxRetry;
     }
-    
+
     var jwt = new googleapis.auth.JWT(
             args.email,
             args.key,
@@ -146,7 +146,7 @@ module.exports = function(args, callback, settings){
     //  Check we have required values
     _.each(['ids', 'startDate', 'endDate', 'metrics'], function(value, key){
         if(!args[value]) {
-            callback("Missing argument for", value);
+            callback("Missing argument for " + value);
             return false;
         }
     })

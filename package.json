@@ -1,6 +1,6 @@
 {
   "name": "ga-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Google analytics API access via node",
   "main": "index.js",
   "scripts": {
