@@ -27,9 +27,8 @@ var googleapis  = require('googleapis'),
     },
 
     //  Execuates a ga query, or returns cache if available
-    gaExecuteQuery = function(args, callback, cache){
-        var retryCount = 0,
-            concurrentMaxRetry = 3;
+    gaExecuteQuery = function(args, callback, cache, retryCount){
+        retryCount = retryCount || 0;
         concurrentUp();
         googleapis.analytics('v3').data.ga.get(args, function(err, result) {
             concurrentDown();
@@ -39,7 +38,7 @@ var googleapis  = require('googleapis'),
                     setTimeout(function(){
                         if(retryCount < concurrentMaxRetry) {
                             retryCount += 1;
-                            gaExecuteQuery.apply(this, [args, callback, cache]);
+                            gaExecuteQuery.apply(this, [args, callback, cache, retryCount]);
                         } else {
                             //  Give up
                             return callback(err);
@@ -111,35 +110,24 @@ module.exports = function(args, callback, settings){
         ),
         sessionFile = cacheDir + "ga-runner-" + args.email.replace(/[^a-zA-Z\-]/gi, "_"),
         authorize = function(authCallback) {
-            fs.exists(sessionFile, function(exists) {
-                if(exists) {
-                    fs.readFile(sessionFile, function(err, result) {
-                        //  If the file was read successfully
-                        if(!err) {
-                            //  If we cannot parse the file
-                            try {
-                                var json = JSON.parse(result);
-                                //  If session is still valid
-                                if(new Date(json.expiry_date) > Date.now()) {
-                                    return authCallback(null, json);
-                                }
-                            } catch(e) {}
+            fs.readFile(sessionFile, {encoding: "utf8"}, function(err, result) {
+                //  If the file was read successfully
+                if(!err) {
+                    //  If we cannot parse the file
+                    try {
+                        var json = JSON.parse(result);
+                        //  If session is still valid
+                        if(new Date(json.expiry_date) > Date.now()) {
+                            return authCallback(null, json);
                         }
-                        concurrentUp();
-                        jwt.authorize(function(){
-                            concurrentDown();
-                            authCallback.apply(this, arguments);
-                        });
-                    });
-                } else {
-                    concurrentUp();
-                    jwt.authorize(function(err, result){
-                        concurrentDown();
-                        fs.writeFile(sessionFile, JSON.stringify(result));
-                        authCallback.apply(this, arguments);
-                    });
+                    } catch(e) {}
                 }
-                
+                concurrentUp();
+                jwt.authorize(function(err, result){
+                    concurrentDown();
+                    fs.writeFile(sessionFile, JSON.stringify(result));
+                    authCallback.apply(this, arguments);
+                });
             });
         };
 
