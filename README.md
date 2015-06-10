@@ -2,7 +2,13 @@
 
 Google Analytics API access, with automated concurrency limiting and optional request caching.
 
-Features:
+## Installation
+
+```
+npm install ga-api --save
+```
+
+## Features
 
 * Concurrent requests limiting (GA allows 10 by default, and we retry on 403s)
 * Caching of requests (optional and configurable)
