@@ -37,6 +37,17 @@ And the view ID in the google analytics console here:
 
 ![alt text](https://raw.githubusercontent.com/jsguy/ga-api/master/instructions/viewid.jpg "View ID")
 
+So you end up with something like:
+
+```javascript
+var options = {
+  clientId: "clientidisalongandseeminglyrandomstringofcharacters.apps.googleusercontent.com",
+  email: "clientidisalongandseeminglyrandomstringofcharacters@developer.gserviceaccount.com",
+  key: "google-service-private-key.pem",
+  ids: "ga:12345678"
+};
+```
+
 ## Usage
 
 ```javascript
