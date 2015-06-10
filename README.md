@@ -9,7 +9,9 @@ Features:
 * Loosely based on [this](https://www.npmjs.com/package/ga-analytics).
 
 <blockquote>
-	Note: you'll need to [setup a google service account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount) in order to use this library, and have access to google analytics reporting.
+	Note: you'll need to setup a google service account here:
+	https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount
+	in order to use this library, and have access to google analytics reporting.
 </blockquote>
 
 ## Authenticating
@@ -80,20 +82,67 @@ The settings can optionally override some deafult settings, these include:
 ## Example
 
 ```javascript
-var options = {...see above...},
+var options = {...authentication info from above...},
 	gaApi = require('ga-api');
 
 gaApi(_.extend({}, options, {
-	startDate: "2015-05-21",
-	endDate: "2015-05-28",
-	dimensions: "ga:date",
-	metrics: "ga:pageviews"
+	startDate: "2015-06-03",
+	endDate: "2015-06-10",
+	dimensions: "ga:affiliation,ga:date",
+	metrics: "ga:revenuePerTransaction"
 }), function(err, data) {
 	console.log(data);
 });
 ```
 
+The resulting data will look something like this:
+
+```javascript
+{ kind: 'analytics#gaData',
+  id: 'https://www.googleapis.com/analytics/v3/data/ga?ids=ga:XXXXXXXX&dimensions=ga:affiliation,ga:date&metrics=ga:revenuePerTransaction&sort=ga:affiliation&start-date=2015-06-03&end-date=2015-06-10',
+  query: 
+   { 'start-date': '2015-06-03',
+     'end-date': '2015-06-10',
+     ids: 'ga:XXXXXXXX',
+     dimensions: 'ga:affiliation,ga:date',
+     metrics: [ 'ga:revenuePerTransaction' ],
+     sort: [ 'ga:affiliation' ],
+     'start-index': 1,
+     'max-results': 1000 },
+  itemsPerPage: 1000,
+  totalResults: 32,
+  selfLink: 'https://www.googleapis.com/analytics/v3/data/ga?ids=ga:XXXXXXXX&dimensions=ga:affiliation,ga:date&metrics=ga:revenuePerTransaction&sort=ga:affiliation&start-date=2015-06-03&end-date=2015-06-10',
+  profileInfo: 
+   { profileId: 'XXXXXXXX',
+     accountId: 'XXXXXXXX',
+     webPropertyId: 'UA-XXXXXXXX-2',
+     internalWebPropertyId: 'XXXXXXXX',
+     profileName: 'Web data',
+     tableId: 'ga:XXXXXXXX' },
+  containsSampledData: false,
+  columnHeaders: 
+   [ { name: 'ga:affiliation',
+       columnType: 'DIMENSION',
+       dataType: 'STRING' },
+     { name: 'ga:date', columnType: 'DIMENSION', dataType: 'STRING' },
+     { name: 'ga:revenuePerTransaction',
+       columnType: 'METRIC',
+       dataType: 'CURRENCY' } ],
+  totalsForAllResults: { 'ga:revenuePerTransaction': '123.456' },
+  rows: 
+   [ [ 'SOURCE1', '20150603', '12.34' ],
+     [ 'SOURCE1', '20150604', '56.78' ],
+     [ 'SOURCE2', '20150603', '90.12' ],
+     [ 'SOURCE2', '20150604', '34.56' ],
+     [ 'SOURCE3', '20150603', '78.90' ],
+     [ 'SOURCE3', '20150605', '12.34' ],
+}
+```
+So essentially the "rows" attribute of the data object will have what you want.
+
 <blockquote>
-	Note: See [this page](https://developers.google.com/analytics/devguides/reporting/core/dimsmets#segments=true&cats=visitor,session,traffic_sources,adwords,goal_conversions,platform_or_device,geo_network,system,social_activities,page_tracking,internal_search,site_speed,app_tracking,event_tracking,ecommerce,social_interactions,user_timings,exceptions,content_experiments,custom_variables_or_columns,time,audience,adsense) for examples of dimensions and metrics
+	Note: See this page:
+	https://developers.google.com/analytics/devguides/reporting/core/dimsmets
+	for examples of dimensions and metrics
 </blockquote>
 
