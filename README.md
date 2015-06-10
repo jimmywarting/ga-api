@@ -10,7 +10,7 @@ Features:
 
 <blockquote>
 	Note: you'll need to [setup a google service account](https://developers.google.com/identity/protocols/OAuth2ServiceAccount#creatinganaccount) in order to use this library, and have access to google analytics reporting.
-<blockquote>
+</blockquote>
 
 ## Authenticating
 
@@ -65,7 +65,6 @@ function(error, result) {
     //	Do something with result here
 }
 ```
-
 
 ### settings
 
