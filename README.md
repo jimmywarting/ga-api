@@ -69,6 +69,7 @@ Where:
 * filters - any filtering you wnat, eg: "ga:pagePath=~/Home"
 * dimensions - any dimensions you like, eg: "ga:source"
 * maxResults - maximum number of results to return, eg: 100
+* startIndex - offset to start from to allow paging
 * sort - what to sort by, eg: "ga:source"
 
 The args must also include the Authentication information from above, ie: clientId, email, key and ids.
@@ -117,7 +118,7 @@ The resulting data will look something like this:
 ```javascript
 { kind: 'analytics#gaData',
   id: 'https://www.googleapis.com/analytics/v3/data/ga?ids=ga:XXXXXXXX&dimensions=ga:affiliation,ga:date&metrics=ga:revenuePerTransaction&sort=ga:affiliation&start-date=2015-06-03&end-date=2015-06-10',
-  query: 
+  query:
    { 'start-date': '2015-06-03',
      'end-date': '2015-06-10',
      ids: 'ga:XXXXXXXX',
@@ -129,7 +130,7 @@ The resulting data will look something like this:
   itemsPerPage: 1000,
   totalResults: 32,
   selfLink: 'https://www.googleapis.com/analytics/v3/data/ga?ids=ga:XXXXXXXX&dimensions=ga:affiliation,ga:date&metrics=ga:revenuePerTransaction&sort=ga:affiliation&start-date=2015-06-03&end-date=2015-06-10',
-  profileInfo: 
+  profileInfo:
    { profileId: 'XXXXXXXX',
      accountId: 'XXXXXXXX',
      webPropertyId: 'UA-XXXXXXXX-2',
@@ -137,7 +138,7 @@ The resulting data will look something like this:
      profileName: 'Web data',
      tableId: 'ga:XXXXXXXX' },
   containsSampledData: false,
-  columnHeaders: 
+  columnHeaders:
    [ { name: 'ga:affiliation',
        columnType: 'DIMENSION',
        dataType: 'STRING' },
@@ -146,7 +147,7 @@ The resulting data will look something like this:
        columnType: 'METRIC',
        dataType: 'CURRENCY' } ],
   totalsForAllResults: { 'ga:revenuePerTransaction': '123.456' },
-  rows: 
+  rows:
    [ [ 'SOURCE1', '20150603', '12.34' ],
      [ 'SOURCE1', '20150604', '56.78' ],
      [ 'SOURCE2', '20150603', '90.12' ],
@@ -162,4 +163,3 @@ So essentially the "rows" attribute of the data object will have what you want.
 	https://developers.google.com/analytics/devguides/reporting/core/dimsmets
 	for examples of dimensions and metrics
 </blockquote>
-
