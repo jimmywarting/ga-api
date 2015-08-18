@@ -69,7 +69,7 @@ Where:
 * filters - any filtering you wnat, eg: "ga:pagePath=~/Home"
 * dimensions - any dimensions you like, eg: "ga:source"
 * maxResults - maximum number of results to return, eg: 100
-* startIndex - offset to start from to allow paging
+* startIndex - offset to start from to allow paging, eg: 1, 101
 * sort - what to sort by, eg: "ga:source"
 
 The args must also include the Authentication information from above, ie: clientId, email, key and ids.
