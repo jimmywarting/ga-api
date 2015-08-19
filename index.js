@@ -49,7 +49,7 @@ var googleapis  = require('googleapis'),
                     return callback(err);
                 }
             }
-            
+
             //  Cache the response, if caching is on
             if(cache ) {
                 var fileName = getCacheFileName(args);
@@ -159,6 +159,7 @@ module.exports = function(args, callback, settings){
                 "filters": args.filters,
                 'dimensions': args.dimensions,
                 "max-results": args.maxResults,
+                "start-index": args.startIndex,
                 sort: args.sort,
                 auth: oauth2Client
             });
