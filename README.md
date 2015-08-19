@@ -160,6 +160,12 @@ So essentially the "rows" attribute of the data object will have what you want.
 
 <blockquote>
 	Note: See this page:
-	https://developers.google.com/analytics/devguides/reporting/core/dimsmets
-	for examples of dimensions and metrics
+	
+  https://ga-dev-tools.appspot.com/query-explorer/
+	
+  for examples of how to use dimensions and metrics and create a report, and:
+
+  https://developers.google.com/analytics/devguides/reporting/core/dimsmets
+  
+  for examples of dimensions and metrics
 </blockquote>
