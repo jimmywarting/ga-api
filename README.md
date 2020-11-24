@@ -1,3 +1,10 @@
+# Maintainer Wanted
+This project is looking for maintainer(s).
+
+For now only pull requests of external contributors are being reviewed, accepted and welcomed. No more bug fixes or new features will be implemented.
+
+If you are interested in giving this project some ❤️, please comment on this issue: https://github.com/jsguy/ga-api/issues/9
+
 # ga-api
 
 Google Analytics API access, with automated concurrency limiting and optional request caching.
