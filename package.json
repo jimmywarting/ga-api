@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/jsguy/ga-api",
   "dependencies": {
-    "googleapis": "^39.1.0",
+    "googleapis": "^118.0.0",
     "lodash": "^4.17.21"
   }
 }
